@@ -1,0 +1,14 @@
+.ant-select-selector {
+  padding-inline-end: "0px" !important;
+  border-radius: 50px !important;
+  background-color: white !important;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding-left: 10px !important;
+}
+
+.ant-select-selection-placeholder {
+  color: #2aace2 !important;
+  font-weight: bold;
+  font-family: "Gabarito";
+  padding-left: 5px !important;
+}
