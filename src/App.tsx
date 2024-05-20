@@ -13,6 +13,7 @@ import { Outlet, useLoaderData } from "react-router-dom";
 import { Sidebar } from "./_components/Sidebar/Sidebar";
 import { useCurrentUser } from "./auth/_queries/useCurrentUser";
 import { supabase } from "./database/supabase";
+import { ActiveUsers } from "./goals/GroupGoal";
 import { useNotifications } from "./notifications/_queries/useNotifications";
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -84,7 +85,7 @@ function App() {
     room
       .on("presence", { event: "sync" }, () => {
         setActiveUsers([]);
-        const newState = room.presenceState();
+        const newState = room.presenceState<ActiveUsers>();
         for (const state in newState) {
           const users = newState[state][0];
           setActiveUsers((prev) => [...prev, users]);

@@ -16,7 +16,7 @@ import { supabase } from "../database/supabase";
 import { useGroupGoal } from "./_queries/useGroupGoal";
 import { CreateTaskGroupModal } from "./CreateTaskGroupModal";
 import { Task } from "./Task";
-type ActiveUsers = {
+export type ActiveUsers = {
   image: string;
   presence_ref: string;
   user: string;
