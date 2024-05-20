@@ -13,7 +13,9 @@ import { Goal } from "../goals/Goal";
 import { Goals } from "../goals/Goals";
 import { GroupGoal } from "../goals/GroupGoal";
 import { Map } from "../map/Map";
+import { Message } from "../messages/Message";
 import { Messages } from "../messages/Messages";
+import { NoMessage } from "../messages/NoMessage";
 import { Notifications } from "../notifications/Notifications";
 import { Profile } from "../profile/Profile";
 import { UserProfile } from "../profile/UserProfile";
@@ -22,10 +24,21 @@ export const router = createBrowserRouter([
     children: [
       {
         element: <Forum />,
-        path: "/forum",
+        path: "",
       },
 
       {
+        children: [
+          {
+            element: <NoMessage />,
+            path: "/messages",
+          },
+
+          {
+            element: <Message />,
+            path: "/messages/:id",
+          },
+        ],
         element: <Messages />,
         path: "/messages",
       },

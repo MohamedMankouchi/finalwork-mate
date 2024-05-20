@@ -14,13 +14,10 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Select } from "antd";
-import { useEffect, useState } from "react";
 import { Controller, FieldValues, useForm } from "react-hook-form";
 
 import { useToast } from "../_hooks/useToast";
-import { Tables } from "../_models/database.types";
 import { useGetFriends } from "../profile/_queries/useGetFriends";
-import { getUserById } from "../profile/_queries/useUserDetails";
 import { useCreateGroupGoal } from "./_mutations/useCreateGroupGoal";
 import { useCreatePrivateGoal } from "./_mutations/useCreatePrivateGoal";
 type CreateGoalModalProps = {
@@ -34,27 +31,7 @@ export const CreateGoalModal = ({
   onClose,
   user_id,
 }: CreateGoalModalProps) => {
-  const { data = [], isFetched } = useGetFriends(user_id);
-  const [friendsList, setFriendsList] = useState<Tables<"users">[]>();
-
-  useEffect(() => {
-    if (data?.length !== 0) {
-      data?.forEach(async (el) => {
-        if (el.receiver === user_id) {
-          return await getUserById(el.sender).then((data) =>
-            setFriendsList((prev) => [...prev, data])
-          );
-        }
-        if (el.sender === user_id) {
-          return await getUserById(el.receiver).then((data) =>
-            setFriendsList((prev) => [...prev, data])
-          );
-        }
-      });
-    }
-
-    setFriendsList([]);
-  }, [isFetched]);
+  const { data = [] } = useGetFriends(user_id);
 
   const {
     handleSubmit,
@@ -297,10 +274,10 @@ export const CreateGoalModal = ({
                       mode="multiple"
                       allowClear
                       placeholder="Friends"
-                      options={friendsList?.map((el) => ({
-                        id: el.id,
-                        label: el.email,
-                        value: el.email,
+                      options={data?.map((el) => ({
+                        id: el?.id,
+                        label: el?.email,
+                        value: el?.email,
                       }))}
                       style={{
                         fontFamily: "Gabarito, sans serif",

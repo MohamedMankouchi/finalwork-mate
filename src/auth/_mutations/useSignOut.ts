@@ -21,6 +21,7 @@ export const useSignOut = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: userKeys.user("current") });
+      queryClient.removeQueries({ queryKey: ["markers"] });
     },
   });
 };

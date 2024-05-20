@@ -47,7 +47,7 @@ export const Question = () => {
         </>
       ) : (
         <>
-          <Link to="/forum">
+          <Link to="/">
             <IoMdArrowRoundBack
               size="30"
               style={{ marginBottom: "20px" }}

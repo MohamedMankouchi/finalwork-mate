@@ -11,8 +11,18 @@ export const GoalsCard = ({
   profile_pic,
   percent,
 }: {
-  data: Tables<"goals"> & {
-    goalsGroup: Tables<"users">[];
+  data: {
+    created_at: string;
+    created_by: string;
+    end: string;
+    goalsGroup?: {
+      users: Tables<"users"> | null;
+    }[];
+    id: number;
+    isGroup: boolean | null;
+    last_updated_at: string | null;
+    start: string;
+    title: string;
   };
   percent: number;
   profile_pic?: string;
@@ -67,8 +77,8 @@ export const GoalsCard = ({
               fontFamily: "Gabarito, sans serif",
             }}
           >
-            {data.goalsGroup.map((el: { users: Tables<"users"> }) => (
-              <Avatar key={el.users.id} src={el.users.profile_pic} />
+            {data!.goalsGroup!.map((el) => (
+              <Avatar key={el!.users!.id} src={el!.users!.profile_pic} />
             ))}
           </Avatar.Group>
         ) : (

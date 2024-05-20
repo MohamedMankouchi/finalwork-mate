@@ -8,6 +8,9 @@ const addFriend = async (receiver_id: string, sender_id: string) => {
     .from("friends")
     .insert({ receiver: receiver_id, sender: sender_id });
 
+  await supabase
+    .from("notifications")
+    .insert({ receiver: receiver_id, sender: sender_id, type: "request" });
   if (error) {
     throw error;
   }

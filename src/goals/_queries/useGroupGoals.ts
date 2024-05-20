@@ -11,7 +11,7 @@ const getGroupGoals = async (user_id: string) => {
 
   const groups = data?.filter((el) =>
     el.goalsGroup.find(
-      (user: { users: { id: string } }) => user.users.id === user_id
+      (user: { users: { id: string } | null }) => user?.users?.id === user_id
     )
   );
 

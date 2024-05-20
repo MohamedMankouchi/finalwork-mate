@@ -16,7 +16,11 @@ import { supabase } from "../database/supabase";
 import { useGroupGoal } from "./_queries/useGroupGoal";
 import { CreateTaskGroupModal } from "./CreateTaskGroupModal";
 import { Task } from "./Task";
-
+type ActiveUsers = {
+  image: string;
+  presence_ref: string;
+  user: string;
+};
 export const GroupGoal = () => {
   const { goalId } = useParams();
   const user: Tables<"users"> = useOutletContext();
@@ -52,17 +56,19 @@ export const GroupGoal = () => {
     .subscribe();
 
   useEffect(() => {
-    const roomOne = supabase.channel(goalId as string);
+    const room = supabase.channel(goalId as string);
     const userStatus = {
       image: user.profile_pic,
       user: user.id,
     };
-    roomOne
+    room
       .on("presence", { event: "sync" }, () => {
         setActiveUsers([]);
-        const newState = roomOne.presenceState();
+        const newState = room.presenceState<ActiveUsers>();
         for (const state in newState) {
-          const users = newState[state][0];
+          const users: { image: string; presence_ref: string; user: string } =
+            newState[state][0];
+
           setActiveUsers((prev) => [...prev, users]);
         }
       })
@@ -70,13 +76,13 @@ export const GroupGoal = () => {
         if (status !== "SUBSCRIBED") {
           return;
         }
-        await roomOne.track(userStatus);
+        await room.track(userStatus);
       });
 
     return () => {
-      roomOne.unsubscribe();
+      room.unsubscribe();
     };
-  }, []);
+  }, [goalId, user.id, user.profile_pic]);
 
   return (
     <>
@@ -96,7 +102,7 @@ export const GroupGoal = () => {
       {!groupLoading &&
         groupGoal?.data.length !== 0 &&
         !groupGoal!.data[0].goalsGroup.find(
-          (el: { users: { id: string } }) => el?.users?.id === user.id
+          (el) => el?.users?.id === user.id
         ) && <Navigate to="/" />}
 
       {!groupLoading && groupGoal?.data.length !== 0 && (

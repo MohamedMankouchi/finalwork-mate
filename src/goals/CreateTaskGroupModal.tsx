@@ -14,9 +14,10 @@ import { Select } from "antd";
 import { Controller, FieldValues, useForm } from "react-hook-form";
 
 import { useToast } from "../_hooks/useToast";
+import { Tables } from "../_models/database.types";
 import { useAddTaskGroup } from "./_mutations/useAddTaskGroup";
 type CreateTaskModalProps = {
-  friendsList: [];
+  friendsList: { users: Tables<"users"> | null }[] | undefined;
   goal_id: number;
   isOpen: boolean;
   onClose: () => void;
@@ -128,9 +129,9 @@ export const CreateTaskGroupModal = ({
                   allowClear
                   placeholder="Assign to"
                   options={friendsList?.map((el) => ({
-                    id: el.users.id,
-                    label: el.users.email,
-                    value: el.users.email,
+                    id: el?.users?.id,
+                    label: el?.users?.email,
+                    value: el?.users?.email,
                   }))}
                   style={{
                     fontFamily: "Gabarito, sans serif",
