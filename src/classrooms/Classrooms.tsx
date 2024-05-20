@@ -24,7 +24,7 @@ export async function getToken() {
   if (!userId) {
     return true;
   }
-  const res = await fetch("http://localhost:3000/token", {
+  const res = await fetch("https://finalwork-mate-token.onrender.com/token", {
     body: JSON.stringify({ id: userId, token: localStorage.getItem("token") }),
     headers: {
       "Content-type": "application/json",
