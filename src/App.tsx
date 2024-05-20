@@ -6,15 +6,32 @@ import {
   StreamVideoClient,
   User,
 } from "@stream-io/video-react-sdk";
-import { useEffect, useState } from "react";
+import { notification } from "antd";
+import { createContext, useEffect, useState } from "react";
 import { Outlet, useLoaderData } from "react-router-dom";
 
 import { Sidebar } from "./_components/Sidebar/Sidebar";
 import { useCurrentUser } from "./auth/_queries/useCurrentUser";
+import { supabase } from "./database/supabase";
+import { useNotifications } from "./notifications/_queries/useNotifications";
 
+// eslint-disable-next-line react-refresh/only-export-components
+export const userProvider = createContext<
+  { image: string; presence_ref: string; user: string }[]
+>([]);
 function App() {
   const [client, setClient] = useState<StreamVideoClient>();
   const { data, isLoading } = useCurrentUser();
+  const [activeUsers, setActiveUsers] = useState<
+    { image: string; presence_ref: string; user: string }[]
+  >([]);
+
+  const [api, contextHolder] = notification.useNotification();
+  const {
+    data: notifications,
+    isLoading: notifLoading,
+    refetch,
+  } = useNotifications(data?.id as string);
   useEffect(() => {
     async function getLoader() {
       const { wobble } = await import("ldrs");
@@ -24,12 +41,66 @@ function App() {
   }, []);
   const apiKey = "y5r6e5ssqhw5";
   const token = useLoaderData();
+  supabase
+    .channel(`notifications${data?.id}`)
+    .on(
+      "postgres_changes",
+      {
+        event: "INSERT",
+        filter: `receiver=eq.${data?.id}`,
+        schema: "public",
+        table: "notifications",
+      },
+      (payload) => {
+        refetch();
+        if (payload.new.type === "request") {
+          api.info({
+            description: "You received a new friend request !",
+            duration: 3,
+            message: "New friend request",
+          });
+        }
 
+        if (payload.new.type === "message") {
+          api.info({
+            description: "You received a new message !",
+            duration: 3,
+            message: "New message",
+          });
+        }
+      }
+    )
+    .subscribe();
   useEffect(() => {
+    if (!data) {
+      return setClient(undefined);
+    }
+
+    const room = supabase.channel("users");
+    const userStatus = {
+      image: data.profile_pic,
+      user: data.id,
+    };
+    room
+      .on("presence", { event: "sync" }, () => {
+        setActiveUsers([]);
+        const newState = room.presenceState();
+        for (const state in newState) {
+          const users = newState[state][0];
+          setActiveUsers((prev) => [...prev, users]);
+        }
+      })
+      .subscribe(async (status) => {
+        if (status !== "SUBSCRIBED") {
+          return;
+        }
+        await room.track(userStatus);
+      });
+
     const streamUser: User = {
-      id: data?.id,
-      image: `${data?.profile_pic}`,
-      name: `${data?.firstname} ${data?.lastname}`,
+      id: data.id,
+      image: `${data.profile_pic}`,
+      name: `${data.firstname} ${data.lastname}`,
     };
     const myClient = new StreamVideoClient({
       apiKey,
@@ -39,13 +110,23 @@ function App() {
 
     setClient(myClient);
     return () => {
+      room.unsubscribe();
       myClient.disconnectUser();
       setClient(undefined);
     };
-  }, [isLoading]);
+  }, [
+    data,
+    data?.firstname,
+    data?.id,
+    data?.lastname,
+    data?.profile_pic,
+    isLoading,
+    token,
+  ]);
   return (
     <>
-      {isLoading ? (
+      {contextHolder}
+      {isLoading || notifLoading ? (
         <Center h="100vh">
           <l-line-wobble
             size="80"
@@ -57,16 +138,18 @@ function App() {
         </Center>
       ) : (
         <Flex h="100vh">
-          <Sidebar user={data!} />
-          <Box bg="brand.100" w="100vw" overflowY="auto">
-            {client ? (
-              <StreamVideo client={client}>
+          <Sidebar user={data!} notifCount={notifications?.length} />
+          <userProvider.Provider value={activeUsers}>
+            <Box bg="brand.100" w="100vw" overflowY="auto">
+              {client ? (
+                <StreamVideo client={client}>
+                  <Outlet context={data} />
+                </StreamVideo>
+              ) : (
                 <Outlet context={data} />
-              </StreamVideo>
-            ) : (
-              <Outlet context={data} />
-            )}
-          </Box>
+              )}
+            </Box>
+          </userProvider.Provider>
         </Flex>
       )}
     </>

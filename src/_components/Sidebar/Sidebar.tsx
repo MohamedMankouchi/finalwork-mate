@@ -1,5 +1,5 @@
-import { Divider, Flex, Image, Spacer } from "@chakra-ui/react";
-import { Avatar } from "antd";
+import { Center, Divider, Flex, Image, Spacer } from "@chakra-ui/react";
+import { Avatar, Badge } from "antd";
 import { useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { CgLogIn } from "react-icons/cg";
@@ -17,13 +17,19 @@ import {
   Sidebar as ReactSideBar,
   SubMenu,
 } from "react-pro-sidebar";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import { Tables } from "../../_models/database.types";
 import { useSignOut } from "../../auth/_mutations/useSignOut";
 import Logo from "./../../assets/Mate.png";
 
-export const Sidebar = ({ user }: { user: Tables<"users"> | null }) => {
+export const Sidebar = ({
+  user,
+  notifCount,
+}: {
+  notifCount?: number;
+  user: Tables<"users"> | null;
+}) => {
   const [isCollapsed, setIscollapsed] = useState(true);
   const { mutateAsync: signOut } = useSignOut();
   const handleSignOut = async () => {
@@ -65,12 +71,12 @@ export const Sidebar = ({ user }: { user: Tables<"users"> | null }) => {
             },
           }}
         >
-          <MenuItem component={<NavLink to="/" />} icon={<Image src={Logo} />}>
-            Home
-          </MenuItem>
+          <Center justifyContent="center" p={2} as={Link} to="/">
+            <Image src={Logo} />{" "}
+          </Center>
 
           <MenuItem
-            component={<NavLink to="/forum" />}
+            component={<NavLink to="/" />}
             icon={<MdOutlineForum size="25px" color="#2CABE2" />}
           >
             Forum
@@ -83,7 +89,14 @@ export const Sidebar = ({ user }: { user: Tables<"users"> | null }) => {
           </MenuItem>
           <MenuItem
             component={<NavLink to="/classrooms" />}
-            icon={<RiLiveLine size="25px" color="#2CABE2" />}
+            icon={
+              <RiLiveLine
+                size="25px"
+                color="#2CABE2"
+                opacity={!user ? 0.4 : 1}
+              />
+            }
+            disabled={!user}
           >
             Classrooms
           </MenuItem>
@@ -95,7 +108,9 @@ export const Sidebar = ({ user }: { user: Tables<"users"> | null }) => {
           </MenuItem>
           <MenuItem
             component={<NavLink to="/goals" />}
-            icon={<PiTarget size="25px" color="#2CABE2" />}
+            icon={
+              <PiTarget size="25px" color="#2CABE2" opacity={!user ? 0.4 : 1} />
+            }
             disabled={!user}
           >
             Goals
@@ -127,7 +142,7 @@ export const Sidebar = ({ user }: { user: Tables<"users"> | null }) => {
               <MenuItem
                 component={<NavLink to="/notifications" />}
                 icon={<MdOutlineNotifications size="25px" color="#2CABE2" />}
-                suffix={2}
+                suffix={<Badge overflowCount={10} count={notifCount} />}
               >
                 Notifications
               </MenuItem>
