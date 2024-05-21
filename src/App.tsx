@@ -135,7 +135,7 @@ function App() {
             bg-opacity="0.1"
             speed="1.75"
             color="#2AACE2"
-          ></l-line-wobble>
+          />
         </Center>
       ) : (
         <Flex h="100vh">
