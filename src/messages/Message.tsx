@@ -22,6 +22,7 @@ import ScrollToBottom from "react-scroll-to-bottom";
 import { Tables } from "../_models/database.types";
 import { userProvider } from "../App";
 import { supabase } from "../database/supabase";
+import { useCheckFriends } from "../profile/_queries/useCheckFriends";
 import { useCheckChat } from "./_mutations/useCheckChat";
 import { useGetMessages } from "./_queries/useGetMessages";
 export const Message = () => {
@@ -42,6 +43,11 @@ export const Message = () => {
     user.id
   );
 
+  const { data: areFriends, isLoading: checkLoading } = useCheckFriends(
+    user.id,
+    users?.user?.id as string,
+    !!users
+  );
   const handleMessages = async ({ message }: FieldValues) => {
     reset();
     const { data, error } = await supabase.from("chat_messages").insert({
@@ -51,13 +57,11 @@ export const Message = () => {
       sender: user.id,
     });
 
-    await supabase
-      .from("notifications")
-      .insert({
-        receiver: users?.user?.id as string,
-        sender: user.id,
-        type: "message",
-      });
+    await supabase.from("notifications").insert({
+      receiver: users?.user?.id as string,
+      sender: user.id,
+      type: "message",
+    });
     if (error) {
       throw error;
     }
@@ -101,7 +105,7 @@ export const Message = () => {
     .subscribe();
   return (
     <Box w="100%" h="100%" position="relative">
-      {isLoading || userLoading ? (
+      {isLoading || userLoading || checkLoading ? (
         <>
           <Center h="100vh">
             <l-line-wobble
@@ -113,7 +117,9 @@ export const Message = () => {
             ></l-line-wobble>
           </Center>
         </>
-      ) : !data?.chat.data ? (
+      ) : !data?.chat.data ||
+        !areFriends ||
+        areFriends.status !== "accepted" ? (
         <Navigate to="/messages" />
       ) : (
         <>
