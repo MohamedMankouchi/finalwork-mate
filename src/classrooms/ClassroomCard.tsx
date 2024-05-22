@@ -11,7 +11,7 @@ import {
 import { GetCallResponse } from "@stream-io/video-react-sdk";
 import { Avatar } from "antd";
 import { IoMdLock } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const ClassroomCard = ({ data }: { data: GetCallResponse }) => {
   const navigate = useNavigate();
@@ -48,7 +48,12 @@ export const ClassroomCard = ({ data }: { data: GetCallResponse }) => {
               Created by:
             </Text>
             <Flex alignItems="center" gap="2">
-              <Avatar src={data.call.custom.user.profile_pic} size="default" />
+              <Link to={`/user/${data.call.custom.user.id}`}>
+                <Avatar
+                  src={data.call.custom.user.profile_pic}
+                  size="default"
+                />
+              </Link>
               <Text fontSize="14px" fontWeight={600}>
                 {data.call.custom.user.firstname}{" "}
                 {data.call.custom.user.lastname}{" "}

@@ -16,6 +16,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { FaPhone } from "react-icons/fa6";
 import { IoSchool } from "react-icons/io5";
 import { MdEmail } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 import { Button } from "../_components/Button/Button";
 import { useFriendsPlanned } from "./_queries/useFriendsPlanned";
@@ -351,11 +352,18 @@ export const MapDrawer = ({
                       hasArrow
                       label={
                         el?.from
-                          ? `Going on ${format(el?.from, "dd/MM/yyyy hh:mm")}`
+                          ? `${el.users?.firstname} ${
+                              el.users?.lastname
+                            } is Going on ${format(
+                              el?.from,
+                              "dd/MM/yyyy"
+                            )} at ${format(el?.from, "H:mm")}`
                           : ""
                       }
                     >
-                      <Avatar src={el?.users?.profile_pic} />
+                      <Link to={`/user/${el?.users?.id}`}>
+                        <Avatar src={el?.users?.profile_pic} />
+                      </Link>
                     </Tooltip>
                   ))}
                 </Avatar.Group>

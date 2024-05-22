@@ -13,15 +13,7 @@ export const Tabs = ({ filter }: { filter: string }) => {
     <ChakraTabs
       position="relative"
       variant="unstyled"
-      defaultIndex={
-        filter === "all"
-          ? 0
-          : filter === "resolved"
-          ? 1
-          : filter === "unresolved"
-          ? 2
-          : 3
-      }
+      defaultIndex={filter === "all" ? 0 : filter === "resolved" ? 1 : 2}
     >
       <TabList gap={5}>
         <Tab
@@ -44,13 +36,6 @@ export const Tabs = ({ filter }: { filter: string }) => {
           onClick={() => setSearchParams({ filter: "unresolved" })}
         >
           Unresolved
-        </Tab>
-        <Tab
-          fontWeight="bold"
-          p={0}
-          onClick={() => setSearchParams({ filter: "friends" })}
-        >
-          Friends
         </Tab>
       </TabList>
       <TabIndicator
