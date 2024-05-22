@@ -395,7 +395,7 @@ export const UserProfile = () => {
                                 plannings.data?.find(
                                   (data) => data.marker_id === el!.id
                                 )?.from as string,
-                                "pp"
+                                "H:mm"
                               )}
                             </Td>
                             <Td>
@@ -403,7 +403,7 @@ export const UserProfile = () => {
                                 plannings.data?.find(
                                   (data) => data.marker_id === el!.id
                                 )?.to as string,
-                                "pp"
+                                "H:mm"
                               )}
                             </Td>
                           </Tr>
