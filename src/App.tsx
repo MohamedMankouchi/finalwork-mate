@@ -8,7 +8,12 @@ import {
 } from "@stream-io/video-react-sdk";
 import { notification } from "antd";
 import { createContext, useEffect, useState } from "react";
-import { Outlet, useLoaderData } from "react-router-dom";
+import {
+  Outlet,
+  useLoaderData,
+  useLocation,
+  useParams,
+} from "react-router-dom";
 
 import { Sidebar } from "./_components/Sidebar/Sidebar";
 import { useCurrentUser } from "./auth/_queries/useCurrentUser";
@@ -26,7 +31,8 @@ function App() {
   const [activeUsers, setActiveUsers] = useState<
     { image: string; presence_ref: string; user: string }[]
   >([]);
-
+  const location = useLocation();
+  const { id } = useParams();
   const [api, contextHolder] = notification.useNotification();
   const {
     data: notifications,
@@ -63,6 +69,11 @@ function App() {
         }
 
         if (payload.new.type === "message") {
+          if (
+            location.pathname === "/messages" ||
+            location.pathname === `/messages/${id}`
+          )
+            return;
           api.info({
             description: "You received a new message !",
             duration: 3,
