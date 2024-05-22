@@ -21,6 +21,7 @@ type FileCardProps = {
     education: string;
     email: string;
     firstname: string | null;
+    id: string | null;
     lastname: string | null;
     profile_pic: string | null;
   } | null;
@@ -55,7 +56,9 @@ export const FileCard = ({ data }: { data: FileCardProps }) => {
               Author:
             </Heading>
             <Flex alignItems="center" gap={2} mt={2}>
-              <Avatar src={data.users?.profile_pic} />
+              <Link to={`/user/${data.users?.id}`}>
+                <Avatar src={data.users?.profile_pic} />
+              </Link>
               <Text>
                 {data.users?.firstname} {data.users?.lastname}
               </Text>
@@ -77,6 +80,7 @@ export const FileCard = ({ data }: { data: FileCardProps }) => {
               target="_blank"
               bg="brand.200"
               color="white"
+              _hover={{ bg: "#008ECC" }}
             >
               <Flex gap={2} alignItems="center">
                 <TiEye />
@@ -85,6 +89,7 @@ export const FileCard = ({ data }: { data: FileCardProps }) => {
             </Button>
             <Button
               bg="brand.200"
+              _hover={{ bg: "#008ECC" }}
               color="white"
               as={Link}
               to={!isLoading ? URL.createObjectURL(blob!) : ""}

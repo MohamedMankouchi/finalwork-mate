@@ -178,7 +178,9 @@ export const Register = () => {
                 mode="multiple"
                 allowClear
                 placeholder="Preferred languages"
-                options={Languages}
+                options={Languages.map((el) => {
+                  return { label: el.label, value: el.label };
+                })}
                 style={{ fontFamily: "Gabarito, sans serif", height: "40px" }}
                 onChange={(e) => onChange(e)}
                 value={value}

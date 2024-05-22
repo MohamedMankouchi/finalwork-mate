@@ -61,7 +61,9 @@ export const Question = () => {
 
           <Flex justifyContent="space-between" alignItems="center" mt="3">
             <Flex alignItems="center" gap="2">
-              <Avatar src={data!.data.users?.profile_pic} size="large" />
+              <Link to={`/user/${data?.data.users?.id}`}>
+                <Avatar src={data!.data.users?.profile_pic} size="large" />
+              </Link>
               <Box>
                 <Text>
                   {data!.data.users?.firstname} {data!.data.users?.lastname}

@@ -127,11 +127,15 @@ export const Message = () => {
             <Flex alignItems="center" p={4} justifyContent="space-between">
               <Flex alignItems="center" gap={2}>
                 {activeUsers.find((user) => user.user === users?.user?.id) ? (
-                  <Badge dot color="green">
-                    <Avatar src={users?.user?.profile_pic} size="large" />
-                  </Badge>
+                  <Link to={`/user/${users?.user?.id}`}>
+                    <Badge dot color="green">
+                      <Avatar src={users?.user?.profile_pic} size="large" />
+                    </Badge>
+                  </Link>
                 ) : (
-                  <Avatar src={users?.user?.profile_pic} size="large" />
+                  <Link to={`/user/${users?.user?.id}`}>
+                    <Avatar src={users?.user?.profile_pic} size="large" />
+                  </Link>
                 )}
                 <Box>
                   <Text fontWeight="bold">
