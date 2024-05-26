@@ -7,6 +7,7 @@ import {
   Tooltip,
   useDisclosure,
 } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 import { useOutletContext, useSearchParams } from "react-router-dom";
 
 import { Button } from "../_components/Button/Button";
@@ -59,6 +60,11 @@ export const Filelibrary = () => {
         mt="12"
         templateColumns="repeat(auto-fill, minmax(400px, 1fr));"
         gap="4"
+        as={motion.div}
+        layout
+        animate={{ opacity: 1 }}
+        initial={{ opacity: 0 }}
+        exit={{ opacity: 0 }}
       >
         {isLoading ? (
           <>

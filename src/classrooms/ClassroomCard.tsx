@@ -10,13 +10,22 @@ import {
 } from "@chakra-ui/react";
 import { GetCallResponse } from "@stream-io/video-react-sdk";
 import { Avatar } from "antd";
+import { motion } from "framer-motion";
 import { IoMdLock } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 
 export const ClassroomCard = ({ data }: { data: GetCallResponse }) => {
   const navigate = useNavigate();
   return (
-    <Card borderRadius="10px" boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px">
+    <Card
+      borderRadius="10px"
+      boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
+      as={motion.div}
+      layout
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      exit={{ opacity: 0 }}
+    >
       <CardBody>
         <Box h="100px" borderRadius="15px" position="relative">
           <Image
