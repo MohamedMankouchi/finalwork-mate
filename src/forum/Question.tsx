@@ -69,7 +69,8 @@ export const Question = () => {
                   {data!.data.users?.firstname} {data!.data.users?.lastname}
                 </Text>
                 <Text fontSize="12px">
-                  {format(data!.data.created_at, "Pp")}
+                  {format(data!.data.created_at, "dd/MM/yyy")},{" "}
+                  {format(data!.data.created_at, "H:mm")}
                 </Text>
               </Box>
             </Flex>

@@ -352,12 +352,14 @@ export const MapDrawer = ({
                       hasArrow
                       label={
                         el?.from
-                          ? `${el.users?.firstname} ${
-                              el.users?.lastname
-                            } is Going on ${format(
+                          ? `${el.users?.firstname} ${el.users?.lastname}  ${
+                              el.from < new Date().toString()
+                                ? "went"
+                                : "is going"
+                            } on ${format(el?.from, "dd/MM/yyyy")} at ${format(
                               el?.from,
-                              "dd/MM/yyyy"
-                            )} at ${format(el?.from, "H:mm")}`
+                              "H:mm"
+                            )}`
                           : ""
                       }
                     >

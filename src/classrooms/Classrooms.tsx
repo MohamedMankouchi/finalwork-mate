@@ -1,13 +1,17 @@
 import {
   Box,
+  Center,
   Flex,
   Grid,
   Heading,
   SkeletonText,
+  Text,
   useDisclosure,
 } from "@chakra-ui/react";
 import { useStreamVideoClient } from "@stream-io/video-react-sdk";
 import SkeletonImage from "antd/es/skeleton/Image";
+import { motion } from "framer-motion";
+import { TbError404 } from "react-icons/tb";
 import { Navigate, useOutletContext, useSearchParams } from "react-router-dom";
 
 import { Button } from "../_components/Button/Button";
@@ -68,13 +72,18 @@ export const Classrooms = () => {
               />
             </Box>
           </Flex>
-          <Grid
-            mt="12"
-            templateColumns="repeat(auto-fill, minmax(400px, 1fr));"
-            gap="4"
-          >
+          <Box>
             {isLoading ? (
-              <>
+              <Grid
+                mt="12"
+                templateColumns="repeat(auto-fill, minmax(400px, 1fr));"
+                gap="4"
+                as={motion.div}
+                layout
+                animate={{ opacity: 1 }}
+                initial={{ opacity: 0 }}
+                exit={{ opacity: 0 }}
+              >
                 <Box
                   borderRadius="10px"
                   bg="white"
@@ -228,24 +237,47 @@ export const Classrooms = () => {
                     skeletonHeight="2"
                   />
                 </Box>
-              </>
+              </Grid>
             ) : (!isLoading && data?.length === 0) ||
               data?.filter((el) =>
                 el.call.custom.title
                   .toLowerCase()
                   .includes(searchParams.get("search")?.toLowerCase())
               ).length === 0 ? (
-              "No rooms available"
+              <Center
+                flexDirection="column"
+                h="70vh"
+                as={motion.div}
+                animate={{ opacity: 1 }}
+                initial={{ opacity: 0 }}
+                exit={{ opacity: 0 }}
+              >
+                <TbError404 size={80} />
+                <Text>We didn't find a match ! Try something else</Text>
+              </Center>
             ) : (
-              data
-                ?.filter((el) =>
-                  el.call.custom.title
-                    .toLowerCase()
-                    .includes(searchParams.get("search")?.toLowerCase())
-                )
-                ?.map((el) => <ClassroomCard key={el.call.cid} data={el} />)
+              <Grid
+                mt="12"
+                templateColumns="repeat(auto-fill, minmax(400px, 1fr));"
+                gap="4"
+                as={motion.div}
+                layout
+                animate={{ opacity: 1 }}
+                initial={{ opacity: 0 }}
+                exit={{ opacity: 0 }}
+              >
+                {data
+                  ?.filter((el) =>
+                    el.call.custom.title
+                      .toLowerCase()
+                      .includes(searchParams.get("search")?.toLowerCase())
+                  )
+                  ?.map((el) => (
+                    <ClassroomCard key={el.call.cid} data={el} />
+                  ))}
+              </Grid>
             )}
-          </Grid>
+          </Box>
         </>
       )}
     </Box>

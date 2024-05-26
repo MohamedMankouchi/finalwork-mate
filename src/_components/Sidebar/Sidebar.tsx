@@ -7,6 +7,7 @@ import { IoChatbubblesOutline, IoMapOutline } from "react-icons/io5";
 import {
   MdOutlineCloudDownload,
   MdOutlineForum,
+  MdOutlineLockReset,
   MdOutlineNotifications,
 } from "react-icons/md";
 import { PiSignOutBold, PiTarget } from "react-icons/pi";
@@ -162,6 +163,13 @@ export const Sidebar = ({
                   icon={<IoChatbubblesOutline size={"25px"} color="#2CABE2" />}
                 >
                   Messages
+                </MenuItem>
+
+                <MenuItem
+                  component={<NavLink to="/reset-password" />}
+                  icon={<MdOutlineLockReset size={"25px"} color="#2CABE2" />}
+                >
+                  Reset password
                 </MenuItem>
                 <MenuItem
                   onClick={handleSignOut}

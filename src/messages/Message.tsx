@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { Avatar, Badge } from "antd";
 import { format } from "date-fns";
+import { motion } from "framer-motion";
 import { useContext, useEffect } from "react";
 import { Controller, FieldValues, useForm } from "react-hook-form";
 import { IoMdArrowRoundForward } from "react-icons/io";
@@ -167,7 +168,11 @@ export const Message = () => {
                       <Box>
                         <Avatar src={user.profile_pic} />
                       </Box>
-                      <Box>
+                      <Box
+                        as={motion.div}
+                        initial={{ opacity: 0, x: "-50px" }}
+                        animate={{ opacity: 1, x: 0 }}
+                      >
                         <Text
                           bg="orange"
                           boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
@@ -179,7 +184,8 @@ export const Message = () => {
 
                         <Flex alignItems="end" gap={2}>
                           <Text textAlign="left" fontSize="x-small" mt={2}>
-                            {format(el.created_at, "pp")}
+                            {format(el.created_at, "dd/MM/yyy")},{" "}
+                            {format(el.created_at, "H:mm")}{" "}
                           </Text>
                           {el.isRead ? (
                             <IoCheckmarkDoneSharp />
@@ -199,7 +205,11 @@ export const Message = () => {
                       <Avatar src={users?.user?.profile_pic} />
                     </Box>
 
-                    <Box>
+                    <Box
+                      as={motion.div}
+                      initial={{ opacity: 0, x: "50px" }}
+                      animate={{ opacity: 1, x: 0 }}
+                    >
                       <Text
                         bg="white"
                         boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
@@ -209,7 +219,8 @@ export const Message = () => {
                         {el.message}
                       </Text>
                       <Text textAlign="right" fontSize="x-small" mt={2}>
-                        {format(el.created_at, "pp")}
+                        {format(el.created_at, "dd/MM/yyy")},{" "}
+                        {format(el.created_at, "H:mm")}{" "}
                       </Text>
                     </Box>
                   </Flex>

@@ -43,7 +43,10 @@ export const FileCard = ({ data }: { data: FileCardProps }) => {
       as={motion.div}
       whileHover={{ height: "350px" }}
       animation="ease"
-      transitionDuration={"0.1s"}
+      layout
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      exit={{ opacity: 0 }}
     >
       <Box h="100%" as={motion.div} whileHover={{ overflow: "auto" }}>
         <Text fontSize="18px" fontWeight="bold" color="brand.200">

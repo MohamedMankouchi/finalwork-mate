@@ -49,7 +49,10 @@ export const QuestionItem = ({
             <Text>
               {data.users?.firstname} {data.users?.lastname}
             </Text>
-            <Text fontSize="12px">{format(data.created_at, "Pp")}</Text>
+            <Text fontSize="12px">
+              {format(data.created_at, "dd/MM/yyy")},{" "}
+              {format(data.created_at, "H:mm")}
+            </Text>
           </Box>
         </Flex>
 

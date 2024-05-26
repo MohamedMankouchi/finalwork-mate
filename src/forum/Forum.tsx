@@ -10,6 +10,7 @@ import {
   Tooltip,
   useDisclosure,
 } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 import { TbMoodSadSquint } from "react-icons/tb";
 import { useOutletContext, useSearchParams } from "react-router-dom";
 
@@ -170,6 +171,11 @@ export const Forum = () => {
           mt="12"
           templateColumns="repeat(auto-fill, minmax(400px, 1fr));"
           gap="4"
+          as={motion.div}
+          layout
+          animate={{ opacity: 1 }}
+          initial={{ opacity: 0 }}
+          exit={{ opacity: 0 }}
         >
           {searchParams.get("filter") === "all" &&
             data!
