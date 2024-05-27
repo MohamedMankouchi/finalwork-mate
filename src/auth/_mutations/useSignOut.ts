@@ -5,7 +5,7 @@ import { userKeys } from "../UserQueryKeys";
 
 const signOut = async () => {
   const { error } = await supabase.auth.signOut();
-  localStorage.removeItem("token");
+  sessionStorage.removeItem("token");
   if (error) {
     throw error;
   }
