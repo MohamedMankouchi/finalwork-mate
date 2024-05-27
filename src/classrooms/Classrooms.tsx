@@ -29,14 +29,17 @@ export async function getToken() {
     return true;
   }
   const res = await fetch("https://finalwork-mate-token.onrender.com/token", {
-    body: JSON.stringify({ id: userId, token: localStorage.getItem("token") }),
+    body: JSON.stringify({
+      id: userId,
+      token: sessionStorage.getItem("token"),
+    }),
     headers: {
       "Content-type": "application/json",
     },
     method: "POST",
   });
   const token = await res.json();
-  localStorage.setItem("token", token.token);
+  sessionStorage.setItem("token", token.token);
   return token.token;
 }
 export const Classrooms = () => {
