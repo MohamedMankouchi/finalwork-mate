@@ -7,7 +7,8 @@ export const getUserNotifications = async (id: string) => {
     .from("notifications")
     .select("*, users(*)")
     .eq("receiver", id)
-    .eq("isDeleted", false);
+    .eq("isDeleted", false)
+    .order("created_at", { ascending: false });
   return data.data;
 };
 

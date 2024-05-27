@@ -91,7 +91,10 @@ export const Notification = ({
             </Text>
           )}
 
-          <Text fontSize="12">At {format(data.created_at, "pp")}</Text>
+          <Text fontSize="12">
+            At {format(data.created_at, "H:mm")} the {""}
+            {format(data.created_at, "dd/MM/yyy")}
+          </Text>
 
           {data.type === "request" && (
             <Flex gap="3" mt="3">
