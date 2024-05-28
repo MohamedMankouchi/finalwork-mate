@@ -62,7 +62,16 @@ export const Classrooms = () => {
             streamClient={client!}
           />
           <Flex alignItems="center" justifyContent="space-between">
-            <Heading color="brand.200">Classrooms</Heading>
+            <Flex alignItems="end" gap={1}>
+              <Heading color="black">Classrooms</Heading>
+              <Box
+                h="10px"
+                borderRadius="50px"
+                w="10px"
+                bg="brand.200"
+                mb={2.5}
+              ></Box>
+            </Flex>{" "}
             <Box>
               <Button value="Create room" onClick={onOpen} />
             </Box>

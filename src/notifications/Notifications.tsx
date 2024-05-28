@@ -13,8 +13,16 @@ export const Notifications = () => {
 
   return (
     <Box p="5">
-      <Heading color="brand.200">Notifications</Heading>
-
+      <Flex alignItems="end" gap={1}>
+        <Heading color="black">Notifications</Heading>
+        <Box
+          h="10px"
+          borderRadius="50px"
+          w="10px"
+          bg="brand.200"
+          mb={2.5}
+        ></Box>
+      </Flex>
       {!user ? (
         <Navigate to="/login" />
       ) : isLoading ? (

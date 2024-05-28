@@ -45,7 +45,16 @@ export const Goals = () => {
             user_id={user.id}
           />
           <Flex alignItems="center" justifyContent="space-between">
-            <Heading color="brand.200">Goals</Heading>
+            <Flex alignItems="end" gap={1}>
+              <Heading color="black">Goals</Heading>
+              <Box
+                h="10px"
+                borderRadius="50px"
+                w="10px"
+                bg="brand.200"
+                mb={2.5}
+              ></Box>
+            </Flex>{" "}
             <Box>
               <Button value="Create a goal" onClick={onOpen} />
             </Box>
