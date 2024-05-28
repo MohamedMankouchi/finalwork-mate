@@ -29,8 +29,16 @@ export const Filelibrary = () => {
     <Box p="5">
       <AddFileModal onClose={onClose} isOpen={isOpen} user_id={user?.id} />
       <Flex alignItems="center" justifyContent="space-between">
-        <Heading color="brand.200">File library</Heading>
-
+        <Flex alignItems="end" gap={1}>
+          <Heading color="black">File library</Heading>
+          <Box
+            h="10px"
+            borderRadius="50px"
+            w="10px"
+            bg="brand.200"
+            mb={2.5}
+          ></Box>
+        </Flex>
         {!user ? (
           <Tooltip
             label="Log yourself in to share files"

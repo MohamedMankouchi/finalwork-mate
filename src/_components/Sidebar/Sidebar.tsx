@@ -72,7 +72,7 @@ export const Sidebar = ({
             },
           }}
         >
-          <Center justifyContent="center" p={2} as={Link} to="/">
+          <Center justifyContent="center" p={2} mt={5} mb={10} as={Link} to="/">
             <Image src={Logo} />{" "}
           </Center>
 

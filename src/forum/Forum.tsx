@@ -37,7 +37,16 @@ export const Forum = () => {
     <Box p="5">
       <CreateQuestionModal onClose={onClose} isOpen={isOpen} />
       <Flex alignItems="center" justifyContent="space-between">
-        <Heading color="brand.200">Forum</Heading>
+        <Flex alignItems="end" gap={1}>
+          <Heading color="black">Forum</Heading>
+          <Box
+            h="10px"
+            borderRadius="50px"
+            w="10px"
+            bg="brand.200"
+            mb={2.5}
+          ></Box>
+        </Flex>
         {!user ? (
           <Tooltip
             label="Log yourself in to create a question"

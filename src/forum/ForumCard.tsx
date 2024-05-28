@@ -9,6 +9,7 @@ import { getQuestionsProps } from "./_queries/useQuestions";
 export const ForumCard = ({ data }: { data: getQuestionsProps }) => {
   return (
     <Box
+      position="relative"
       borderRadius="10px"
       bg="white"
       boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
@@ -38,35 +39,17 @@ export const ForumCard = ({ data }: { data: getQuestionsProps }) => {
         </Box>
       </Link>
 
-      <Flex
-        h="30px"
+      <Box
         bg={!data.status ? "brand.300" : "#5ca14b"}
-        borderBottomLeftRadius="10px"
-        borderBottomRightRadius="10px"
-        textAlign="center"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
+        position="absolute"
+        bottom="10px"
+        right="10px"
+        fontSize="xs"
+        borderRadius="50px"
+        p={2}
       >
-        <Text color={!data.status ? "brand.400" : "#1a4324"}>
-          {!data.status ? "Unresolved" : "Resolved"}
-        </Text>
-      </Flex>
-      {/* <Flex alignItems="center" justifyContent="space-between" mt="4">
-        <Flex gap={2}>
-          <Flex alignItems="center" gap={1.5}>
-            <BiLike color="#2AACE2" />
-            <Text fontSize="12px">25</Text>
-          </Flex>
-          <Flex alignItems="center" gap={1.5}>
-            <LuEye color="#2AACE2" />
-            <Text fontSize="12px">25</Text>
-          </Flex>
-        </Flex>
-        <Box>
-          <Status status={data.status!} />
-        </Box>
-      </Flex> */}
+        {!data.status ? <Text>Unresolved</Text> : <Text>Resolved</Text>}
+      </Box>
     </Box>
   );
 };
