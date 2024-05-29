@@ -1,7 +1,7 @@
 import { Box, Button, Center, Heading, Text } from "@chakra-ui/react";
 import {
   CallControls,
-  PaginatedGridLayout,
+  SpeakerLayout,
   StreamTheme,
   useCall,
   useCallStateHooks,
@@ -15,6 +15,7 @@ export const RoomUI = () => {
   const call = useCall();
   const user: Tables<"users"> = useOutletContext();
   const { useCallCreatedBy, useCallEndedAt } = useCallStateHooks();
+
   const createdBy = useCallCreatedBy()?.id;
   const callHasEnded = !!useCallEndedAt();
 
@@ -50,13 +51,12 @@ export const RoomUI = () => {
         fontSize: "14px",
       }}
     >
-      <PaginatedGridLayout />
+      <SpeakerLayout />{" "}
       <CallControls
         onLeave={async () => {
           navigate("/classrooms");
         }}
       />
-
       {createdBy === user.id && (
         <Text
           cursor="pointer"
