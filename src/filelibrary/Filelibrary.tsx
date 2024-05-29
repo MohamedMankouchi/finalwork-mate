@@ -3,11 +3,12 @@ import {
   Flex,
   Grid,
   Heading,
-  SkeletonText,
   Tooltip,
   useDisclosure,
 } from "@chakra-ui/react";
+import { Skeleton } from "antd";
 import { motion } from "framer-motion";
+import Masonry from "react-layout-masonry";
 import { useOutletContext, useSearchParams } from "react-router-dom";
 
 import { Button } from "../_components/Button/Button";
@@ -64,183 +65,139 @@ export const Filelibrary = () => {
           />
         </Box>
       </Flex>
-      <Grid
-        mt="12"
-        templateColumns="repeat(auto-fill, minmax(400px, 1fr));"
-        gap="4"
-        as={motion.div}
-        layout
-        animate={{ opacity: 1 }}
-        initial={{ opacity: 0 }}
-        exit={{ opacity: 0 }}
-      >
-        {isLoading ? (
-          <>
-            <Box
-              height="50px"
-              overflow="hidden"
-              boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
-              borderRadius="10px"
-              bg="white"
-              p="2"
-            >
-              <SkeletonText mt="4" noOfLines={1} skeletonHeight="2" />
-            </Box>
-            <Box
-              height="50px"
-              overflow="hidden"
-              boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
-              borderRadius="10px"
-              bg="white"
-              p="2"
-            >
-              <SkeletonText mt="4" noOfLines={1} skeletonHeight="2" />
-            </Box>
-            <Box
-              height="50px"
-              overflow="hidden"
-              boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
-              borderRadius="10px"
-              bg="white"
-              p="2"
-            >
-              <SkeletonText mt="4" noOfLines={1} skeletonHeight="2" />
-            </Box>
-            <Box
-              height="50px"
-              overflow="hidden"
-              boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
-              borderRadius="10px"
-              bg="white"
-              p="2"
-            >
-              <SkeletonText mt="4" noOfLines={1} skeletonHeight="2" />
-            </Box>
-            <Box
-              height="50px"
-              overflow="hidden"
-              boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
-              borderRadius="10px"
-              bg="white"
-              p="2"
-            >
-              <SkeletonText mt="4" noOfLines={1} skeletonHeight="2" />
-            </Box>
-            <Box
-              height="50px"
-              overflow="hidden"
-              boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
-              borderRadius="10px"
-              bg="white"
-              p="2"
-            >
-              <SkeletonText mt="4" noOfLines={1} skeletonHeight="2" />
-            </Box>
-            <Box
-              height="50px"
-              overflow="hidden"
-              boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
-              borderRadius="10px"
-              bg="white"
-              p="2"
-            >
-              <SkeletonText mt="4" noOfLines={1} skeletonHeight="2" />
-            </Box>{" "}
-            <Box
-              height="50px"
-              overflow="hidden"
-              boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
-              borderRadius="10px"
-              bg="white"
-              p="2"
-            >
-              <SkeletonText mt="4" noOfLines={1} skeletonHeight="2" />
-            </Box>{" "}
-            <Box
-              height="50px"
-              overflow="hidden"
-              boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
-              borderRadius="10px"
-              bg="white"
-              p="2"
-            >
-              <SkeletonText mt="4" noOfLines={1} skeletonHeight="2" />
-            </Box>{" "}
-            <Box
-              height="50px"
-              overflow="hidden"
-              boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
-              borderRadius="10px"
-              bg="white"
-              p="2"
-            >
-              <SkeletonText mt="4" noOfLines={1} skeletonHeight="2" />
-            </Box>{" "}
-            <Box
-              height="50px"
-              overflow="hidden"
-              boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
-              borderRadius="10px"
-              bg="white"
-              p="2"
-            >
-              <SkeletonText mt="4" noOfLines={1} skeletonHeight="2" />
-            </Box>{" "}
-            <Box
-              height="50px"
-              overflow="hidden"
-              boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
-              borderRadius="10px"
-              bg="white"
-              p="2"
-            >
-              <SkeletonText mt="4" noOfLines={1} skeletonHeight="2" />
-            </Box>{" "}
-            <Box
-              height="50px"
-              overflow="hidden"
-              boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
-              borderRadius="10px"
-              bg="white"
-              p="2"
-            >
-              <SkeletonText mt="4" noOfLines={1} skeletonHeight="2" />
-            </Box>{" "}
-            <Box
-              height="50px"
-              overflow="hidden"
-              boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
-              borderRadius="10px"
-              bg="white"
-              p="2"
-            >
-              <SkeletonText mt="4" noOfLines={1} skeletonHeight="2" />
-            </Box>
-          </>
-        ) : (
-          <>
-            {data
-              ?.filter(
-                (file) =>
-                  file.title
-                    .toLowerCase()
-                    .includes(searchFilter.toLowerCase()) ||
-                  file.description
-                    .toLowerCase()
-                    .includes(searchFilter.toLowerCase()) ||
-                  file
-                    .users!.firstname.toLowerCase()
-                    .includes(searchFilter.toLowerCase()) ||
-                  file
-                    .users!.lastname.toLowerCase()
-                    .includes(searchFilter.toLowerCase())
-              )
-              ?.map((file) => (
-                <FileCard key={file.id} data={file} />
-              ))}
-          </>
-        )}
-      </Grid>
+      {isLoading ? (
+        <Grid
+          mt="12"
+          templateColumns="repeat(auto-fill, minmax(400px, 1fr));"
+          gap="4"
+        >
+          <Box
+            boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
+            borderRadius="10px"
+            bg="white"
+            p="2"
+          >
+            <Skeleton active />{" "}
+          </Box>
+          <Box
+            boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
+            borderRadius="10px"
+            bg="white"
+            p="2"
+          >
+            <Skeleton active />{" "}
+          </Box>{" "}
+          <Box
+            boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
+            borderRadius="10px"
+            bg="white"
+            p="2"
+          >
+            <Skeleton active />{" "}
+          </Box>{" "}
+          <Box
+            boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
+            borderRadius="10px"
+            bg="white"
+            p="2"
+          >
+            <Skeleton active />{" "}
+          </Box>
+          <Box
+            boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
+            borderRadius="10px"
+            bg="white"
+            p="2"
+          >
+            <Skeleton active />{" "}
+          </Box>{" "}
+          <Box
+            boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
+            borderRadius="10px"
+            bg="white"
+            p="2"
+          >
+            <Skeleton active />{" "}
+          </Box>{" "}
+          <Box
+            boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
+            borderRadius="10px"
+            bg="white"
+            p="2"
+          >
+            <Skeleton active />{" "}
+          </Box>{" "}
+          <Box
+            boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
+            borderRadius="10px"
+            bg="white"
+            p="2"
+          >
+            <Skeleton active />{" "}
+          </Box>{" "}
+          <Box
+            boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
+            borderRadius="10px"
+            bg="white"
+            p="2"
+          >
+            <Skeleton active />{" "}
+          </Box>{" "}
+          <Box
+            boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
+            borderRadius="10px"
+            bg="white"
+            p="2"
+          >
+            <Skeleton active />{" "}
+          </Box>{" "}
+          <Box
+            boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
+            borderRadius="10px"
+            bg="white"
+            p="2"
+          >
+            <Skeleton active />{" "}
+          </Box>{" "}
+          <Box
+            boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
+            borderRadius="10px"
+            bg="white"
+            p="2"
+          >
+            <Skeleton active />{" "}
+          </Box>
+        </Grid>
+      ) : (
+        <Masonry
+          columns={{ 1024: 2, 1090: 3, 640: 1, 768: 2 }}
+          gap={15}
+          style={{ marginTop: "48px" }}
+          as={motion.div}
+          layout
+          animate={{ opacity: 1 }}
+          initial={{ opacity: 0 }}
+          exit={{ opacity: 0 }}
+        >
+          {data
+            ?.filter(
+              (file) =>
+                file.title.toLowerCase().includes(searchFilter.toLowerCase()) ||
+                file.description
+                  .toLowerCase()
+                  .includes(searchFilter.toLowerCase()) ||
+                file
+                  .users!.firstname.toLowerCase()
+                  .includes(searchFilter.toLowerCase()) ||
+                file
+                  .users!.lastname.toLowerCase()
+                  .includes(searchFilter.toLowerCase())
+            )
+            ?.map((file) => (
+              <FileCard key={file.id} data={file} />
+            ))}
+        </Masonry>
+      )}
     </Box>
   );
 };
