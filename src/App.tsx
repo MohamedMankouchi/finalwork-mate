@@ -1,5 +1,3 @@
-import "ldrs/lineWobble";
-
 import { Box, Center, Flex } from "@chakra-ui/react";
 import {
   StreamVideo,
@@ -14,6 +12,7 @@ import {
   useLocation,
   useParams,
 } from "react-router-dom";
+import { SpiralSpinner } from "react-spinners-kit";
 
 import { Sidebar } from "./_components/Sidebar/Sidebar";
 import { useCurrentUser } from "./auth/_queries/useCurrentUser";
@@ -140,13 +139,7 @@ function App() {
       {contextHolder}
       {isLoading || notifLoading ? (
         <Center h="100vh">
-          <l-line-wobble
-            size="80"
-            stroke="5"
-            bg-opacity="0.1"
-            speed="1.75"
-            color="#2AACE2"
-          />
+          <SpiralSpinner size={80} frontColor="#2AACE2" />
         </Center>
       ) : (
         <Flex h="100vh">
