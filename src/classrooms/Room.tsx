@@ -27,6 +27,7 @@ import {
   useOutletContext,
   useParams,
 } from "react-router-dom";
+import { SpiralSpinner } from "react-spinners-kit";
 
 import { useToggle } from "../_hooks/useToggle";
 import { Tables } from "../_models/database.types";
@@ -182,16 +183,7 @@ export const Room = () => {
         </Center>
       ) : !call ? (
         <Center h="90vh">
-          <Box textAlign="center">
-            <l-line-wobble
-              size="80"
-              stroke="5"
-              bg-opacity="0.1"
-              speed="1.75"
-              color="#2AACE2"
-            ></l-line-wobble>
-            <Text>Joining...</Text>
-          </Box>
+          <SpiralSpinner size={80} frontColor="#2AACE2" />
         </Center>
       ) : (
         <StreamCall call={call}>

@@ -39,6 +39,7 @@
     "react-pro-sidebar": "^1.1.0",
     "react-router-dom": "^6.22.3",
     "react-scroll-to-bottom": "^4.2.0",
+    "react-spinners-kit": "^1.9.1",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
