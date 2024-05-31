@@ -19,7 +19,7 @@ import { IoCheckmarkDoneSharp, IoCheckmarkSharp } from "react-icons/io5";
 import { TbSend2 } from "react-icons/tb";
 import { Link, Navigate, useOutletContext, useParams } from "react-router-dom";
 import ScrollToBottom from "react-scroll-to-bottom";
-import { SpiralSpinner } from "react-spinners-kit";
+import { RotateSpinner } from "react-spinners-kit";
 
 import { Tables } from "../_models/database.types";
 import { userProvider } from "../App";
@@ -110,7 +110,7 @@ export const Message = () => {
       {isLoading || userLoading || checkLoading ? (
         <>
           <Center h="100vh">
-            <SpiralSpinner size={80} frontColor="#2AACE2" />
+            <RotateSpinner size={50} color="#2AACE2" />
           </Center>
         </>
       ) : !data?.chat.data ||

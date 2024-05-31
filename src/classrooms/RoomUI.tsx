@@ -6,7 +6,7 @@ import {
   useCall,
   useCallStateHooks,
 } from "@stream-io/video-react-sdk";
-import { Link, useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 
 import { Tables } from "../_models/database.types";
 
@@ -31,8 +31,7 @@ export const RoomUI = () => {
               bg="brand.200"
               color="white"
               textAlign="center"
-              as={Link}
-              to="/classrooms"
+              onClick={() => (window.location.href = "/classrooms")}
               _hover={{ bg: "#008ECC" }}
             >
               Go back
