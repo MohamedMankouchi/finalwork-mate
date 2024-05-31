@@ -481,12 +481,20 @@ export const Register = () => {
         <Navigate to="/profile" />
       ) : (
         <>
-          <Heading color="brand.200">Register</Heading>
-
+          <Flex alignItems="end" gap={1}>
+            <Heading color="black">Register</Heading>
+            <Box
+              h="10px"
+              borderRadius="50px"
+              w="10px"
+              bg="brand.200"
+              mb={2.5}
+            ></Box>
+          </Flex>{" "}
           <Flex
             justifyContent="center"
             gap="5"
-            p="4"
+            mt="12"
             h="max-content"
             alignItems="center"
             height="90%"

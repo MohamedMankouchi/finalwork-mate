@@ -24,7 +24,6 @@ import { CreateClassroomModal } from "./CreateClassroomModal";
 export async function getToken() {
   const { data } = await supabase.auth.getUser();
   const userId = data.user?.id;
-
   if (!userId) {
     return true;
   }
