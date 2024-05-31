@@ -228,6 +228,7 @@ export const UserProfile = () => {
                   h="100%"
                   w="100%"
                   borderRadius="10px"
+                  objectFit="cover"
                 />
               </Box>
               <Box
