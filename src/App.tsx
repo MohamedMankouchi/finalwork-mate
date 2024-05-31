@@ -12,7 +12,7 @@ import {
   useLocation,
   useParams,
 } from "react-router-dom";
-import { SpiralSpinner } from "react-spinners-kit";
+import { RotateSpinner } from "react-spinners-kit";
 
 import { Sidebar } from "./_components/Sidebar/Sidebar";
 import { useCurrentUser } from "./auth/_queries/useCurrentUser";
@@ -139,7 +139,7 @@ function App() {
       {contextHolder}
       {isLoading || notifLoading ? (
         <Center h="100vh">
-          <SpiralSpinner size={80} frontColor="#2AACE2" />
+          <RotateSpinner size={50} color="#2AACE2" />
         </Center>
       ) : (
         <Flex h="100vh">
