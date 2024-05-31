@@ -72,6 +72,7 @@ export const Profile = () => {
                   src={user.banner_pic as string}
                   h="100%"
                   w="100%"
+                  objectFit="cover"
                   borderRadius="10px"
                 />
               </Box>
