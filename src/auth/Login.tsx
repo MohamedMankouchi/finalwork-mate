@@ -56,7 +56,16 @@ export const Login = () => {
       ) : (
         <>
           <ForgotPasswordModal isOpen={isOpen} onClose={onClose} />
-          <Heading color="brand.200">Login</Heading>
+          <Flex alignItems="end" gap={1}>
+            <Heading color="black">Login</Heading>
+            <Box
+              h="10px"
+              borderRadius="50px"
+              w="10px"
+              bg="brand.200"
+              mb={2.5}
+            ></Box>
+          </Flex>{" "}
           <Flex
             justifyContent="center"
             gap="5"

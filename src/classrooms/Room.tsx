@@ -20,8 +20,10 @@ import {
 import { useEffect, useState } from "react";
 import { Controller, FieldValues, useForm } from "react-hook-form";
 import { BsKey } from "react-icons/bs";
+import { IoMdArrowBack } from "react-icons/io";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import {
+  Link,
   Navigate,
   useNavigate,
   useOutletContext,
@@ -111,6 +113,13 @@ export const Room = () => {
       ) : !isPasswordCorrect ? (
         <Center h="90vh">
           <Box>
+            <Link to="/classrooms">
+              <IoMdArrowBack
+                size="30"
+                style={{ marginBottom: "20px" }}
+                cursor="pointer"
+              />
+            </Link>
             <Heading fontSize="30px" color="brand.200">
               Enter password to access room
             </Heading>
