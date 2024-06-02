@@ -18,7 +18,10 @@ export type getQuestionsProps = {
   } | null;
 };
 const getQuestions = async (): Promise<getQuestionsProps[]> => {
-  const { data, error } = await supabase.from("forums").select(`*, users(*)`);
+  const { data, error } = await supabase
+    .from("forums")
+    .select(`*, users(*)`)
+    .order("created_at", { ascending: false });
 
   if (error) {
     throw error;

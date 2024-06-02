@@ -9,7 +9,6 @@ import { getQuestionsProps } from "./_queries/useQuestions";
 export const ForumCard = ({ data }: { data: getQuestionsProps }) => {
   return (
     <Box
-      position="relative"
       borderRadius="10px"
       bg="white"
       boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
@@ -33,23 +32,21 @@ export const ForumCard = ({ data }: { data: getQuestionsProps }) => {
               {format(data.created_at, "H:mm")}
             </Text>
           </Flex>
-          <Text fontSize="14px" mt="4">
-            {data.title}
-          </Text>
+          <Flex alignItems="end" justifyContent="space-between" gap={5}>
+            <Text fontSize="14px" mt="4" height="45px" overflow="hidden">
+              {data.title}
+            </Text>
+            <Box
+              bg={!data.status ? "brand.300" : "#5ca14b"}
+              fontSize="xs"
+              borderRadius="50px"
+              p={2}
+            >
+              {!data.status ? <Text>Unresolved</Text> : <Text>Resolved</Text>}
+            </Box>
+          </Flex>
         </Box>
       </Link>
-
-      <Box
-        bg={!data.status ? "brand.300" : "#5ca14b"}
-        position="absolute"
-        bottom="10px"
-        right="10px"
-        fontSize="xs"
-        borderRadius="50px"
-        p={2}
-      >
-        {!data.status ? <Text>Unresolved</Text> : <Text>Resolved</Text>}
-      </Box>
     </Box>
   );
 };
