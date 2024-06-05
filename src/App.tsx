@@ -39,13 +39,6 @@ function App() {
     isLoading: notifLoading,
     refetch,
   } = useNotifications(data?.id as string);
-  useEffect(() => {
-    async function getLoader() {
-      const { wobble } = await import("ldrs");
-      wobble.register();
-    }
-    getLoader();
-  }, []);
   const apiKey = "y5r6e5ssqhw5";
   const token = useLoaderData();
   supabase
