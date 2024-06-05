@@ -29,6 +29,7 @@
     "framer-motion": "^11.1.7",
     "ldrs": "^1.0.1",
     "leaflet": "^1.9.4",
+    "leaflet.locatecontrol": "^0.81.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.3",

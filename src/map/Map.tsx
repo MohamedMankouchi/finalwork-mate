@@ -13,6 +13,7 @@ import { useOutletContext } from "react-router-dom";
 import { Tables } from "../_models/database.types";
 import Marker from "./../assets/Marker.png";
 import { useGetMarkers } from "./_queries/useGetMarkers";
+import { LocateControl } from "./LeafletControl";
 import { MapDrawer } from "./MapDrawer";
 import Markers from "./markers.json";
 
@@ -44,6 +45,7 @@ export const Map = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        <LocateControl position="topleft" />
         {isLoading
           ? "loading"
           : data!.map((marker) => (
