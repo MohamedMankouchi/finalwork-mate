@@ -10,6 +10,7 @@ import {
   Outlet,
   useLoaderData,
   useLocation,
+  useNavigation,
   useParams,
 } from "react-router-dom";
 import { RotateSpinner } from "react-spinners-kit";
@@ -134,10 +135,13 @@ function App() {
     isLoading,
     token,
   ]);
+
+  const navigation = useNavigation();
+
   return (
     <>
       {contextHolder}
-      {isLoading || notifLoading ? (
+      {isLoading || notifLoading || navigation.state === "loading" ? (
         <Center h="100vh">
           <RotateSpinner size={50} color="#2AACE2" />
         </Center>
