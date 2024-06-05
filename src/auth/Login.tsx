@@ -14,7 +14,12 @@ import { Controller, FieldValues, useForm } from "react-hook-form";
 import { BsKey } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
-import { Link, Navigate, useOutletContext } from "react-router-dom";
+import {
+  Link,
+  Navigate,
+  useNavigate,
+  useOutletContext,
+} from "react-router-dom";
 
 import { useToast } from "../_hooks/useToast";
 import { useToggle } from "../_hooks/useToggle";
@@ -22,6 +27,7 @@ import { useSignIn } from "./_mutations/useSignIn";
 import { ForgotPasswordModal } from "./ForgotPasswordModal";
 
 export const Login = () => {
+  const navigate = useNavigate();
   const [isVisible, togglePassword] = useToggle(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { mutateAsync: signIn, isPending } = useSignIn();
@@ -39,6 +45,7 @@ export const Login = () => {
         status: "success",
         title: "Success",
       });
+      navigate("/profile");
     } catch (error) {
       showToast({
         description: error.message,
@@ -52,7 +59,7 @@ export const Login = () => {
   return (
     <Box p="5" h="100vh">
       {user ? (
-        <Navigate to="/profile" replace />
+        <Navigate to="/profile" />
       ) : (
         <>
           <ForgotPasswordModal isOpen={isOpen} onClose={onClose} />

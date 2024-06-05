@@ -12,6 +12,7 @@ import {
   useLocation,
   useNavigation,
   useParams,
+  useRevalidator,
 } from "react-router-dom";
 import { RotateSpinner } from "react-spinners-kit";
 
@@ -26,6 +27,7 @@ export const userProvider = createContext<
   { image: string; presence_ref: string; user: string }[]
 >([]);
 function App() {
+  const revalidator = useRevalidator();
   const [client, setClient] = useState<StreamVideoClient>();
   const { data, isLoading } = useCurrentUser();
   const [activeUsers, setActiveUsers] = useState<
@@ -101,8 +103,8 @@ function App() {
         }
         await room.track(userStatus);
       });
-
     if (typeof token == "boolean") {
+      revalidator.revalidate();
       return;
     }
 
@@ -123,6 +125,7 @@ function App() {
       myClient.disconnectUser();
       setClient(undefined);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     data,
     data?.firstname,
