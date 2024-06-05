@@ -52,7 +52,7 @@ export const Login = () => {
   return (
     <Box p="5" h="100vh">
       {user ? (
-        <Navigate to="/profile" />
+        <Navigate to="/profile" replace />
       ) : (
         <>
           <ForgotPasswordModal isOpen={isOpen} onClose={onClose} />
