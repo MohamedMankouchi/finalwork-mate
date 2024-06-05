@@ -1,5 +1,4 @@
 import "@stream-io/video-react-sdk/dist/css/styles.css";
-import "ldrs/lineWobble";
 
 import {
   Box,
