@@ -102,6 +102,10 @@ function App() {
         await room.track(userStatus);
       });
 
+    if (typeof token == "boolean") {
+      return;
+    }
+
     const streamUser: User = {
       id: data.id,
       image: `${data.profile_pic}`,
@@ -134,7 +138,7 @@ function App() {
   return (
     <>
       {contextHolder}
-      {isLoading || notifLoading || navigation.state === "loading" ? (
+      {isLoading || notifLoading ? (
         <Center h="100vh">
           <RotateSpinner size={50} color="#2AACE2" />
         </Center>
@@ -143,7 +147,11 @@ function App() {
           <Sidebar user={data!} notifCount={notifications?.length} />
           <userProvider.Provider value={activeUsers}>
             <Box bg="brand.100" w="100vw" overflowY="auto">
-              {client ? (
+              {navigation.state === "loading" ? (
+                <Center h="100vh">
+                  <RotateSpinner size={50} color="#2AACE2" />
+                </Center>
+              ) : client ? (
                 <StreamVideo client={client}>
                   <Outlet context={data} />
                 </StreamVideo>
