@@ -10,7 +10,6 @@ import {
   Outlet,
   useLoaderData,
   useLocation,
-  useNavigation,
   useParams,
   useRevalidator,
 } from "react-router-dom";
@@ -136,8 +135,6 @@ function App() {
     token,
   ]);
 
-  const navigation = useNavigation();
-
   return (
     <>
       {contextHolder}
@@ -150,11 +147,7 @@ function App() {
           <Sidebar user={data!} notifCount={notifications?.length} />
           <userProvider.Provider value={activeUsers}>
             <Box bg="brand.100" w="100vw" overflowY="auto">
-              {navigation.state === "loading" ? (
-                <Center h="100vh">
-                  <RotateSpinner size={50} color="#2AACE2" />
-                </Center>
-              ) : client ? (
+              {client ? (
                 <StreamVideo client={client}>
                   <Outlet context={data} />
                 </StreamVideo>
